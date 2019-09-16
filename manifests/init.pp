@@ -161,20 +161,24 @@ class cloudwatch (
     ensure_packages($packages)
 
     archive { $zip_name:
-      path         => "/tmp/${zip_name}",
-      extract      => true,
-      extract_path => $install_target,
-      source       => $zip_url,
-      creates      => $install_dir,
-      require      => Package[$packages]
+      path            => "/tmp/${zip_name}",
+      extract         => true,
+      extract_path    => $install_target,
+      source          => $zip_url,
+      creates         => $install_dir,
+      cleanup         => true,
+      checksum_verify => false,
+      require         => Package[$packages]
     }
   } else {
     archive { $zip_name:
-      path         => "/tmp/${zip_name}",
-      extract      => true,
-      extract_path => $install_target,
-      source       => $zip_url,
-      creates      => $install_dir
+      path            => "/tmp/${zip_name}",
+      extract         => true,
+      extract_path    => $install_target,
+      source          => $zip_url,
+      cleanup         => true,
+      checksum_verify => false,
+      creates         => $install_dir
     }
   }
 
